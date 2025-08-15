@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { Copy, Wand2, RefreshCw, Bot } from "lucide-react";
+import { useRef, useState } from "react";
+import { Copy, Wand2, RefreshCw, Bot, Upload } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -20,6 +20,37 @@ export function ExcalidrawConverter() {
   const [outputJson, setOutputJson] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<string>("manual");
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      if (file.type !== "text/csv") {
+        toast({
+          variant: "destructive",
+          title: "Invalid file type",
+          description: "Please upload a .csv file.",
+        });
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const text = e.target?.result;
+        if (typeof text === 'string') {
+          setInputTable(text);
+          toast({ title: "CSV file loaded successfully!" });
+        }
+      };
+      reader.onerror = () => {
+        toast({
+            variant: "destructive",
+            title: "File reading failed",
+            description: "Could not read the selected file.",
+        });
+      }
+      reader.readAsText(file);
+    }
+  };
 
   const handleCopy = async () => {
     if (!outputJson) {
@@ -139,6 +170,13 @@ export function ExcalidrawConverter() {
                   className="flex-grow font-code text-sm"
                   rows={10}
                 />
+                 <input
+                  type="file"
+                  ref={fileInputRef}
+                  onChange={handleFileUpload}
+                  accept=".csv"
+                  className="hidden"
+                />
               </div>
               <div className="flex flex-wrap gap-2">
                 <Button onClick={handleConvert} disabled={isLoading || !inputTable.trim()}>
@@ -146,6 +184,9 @@ export function ExcalidrawConverter() {
                 </Button>
                 <Button variant="secondary" onClick={handleImprove} disabled={isLoading || !inputTable.trim()}>
                   <Wand2 className="mr-2 h-4 w-4" /> Improve with AI
+                </Button>
+                <Button variant="outline" onClick={() => fileInputRef.current?.click()} disabled={isLoading}>
+                    <Upload className="mr-2 h-4 w-4" /> Upload CSV
                 </Button>
               </div>
             </TabsContent>
