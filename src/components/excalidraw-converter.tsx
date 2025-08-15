@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { convertToExcalidraw, parseHtmlTable, parseMarkdownTable } from "@/lib/table-utils";
+import { convertToExcalidraw, parseHtmlTable, parseMarkdownTable, parseCsvTable } from "@/lib/table-utils";
 import { generateTableFromDescription } from "@/ai/flows/generate-table-from-description";
 import { suggestTableImprovements } from "@/ai/flows/suggest-table-improvements";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -48,12 +48,15 @@ export function ExcalidrawConverter() {
     if (parsedData.length === 0) {
       parsedData = parseHtmlTable(inputTable);
     }
+    if (parsedData.length === 0) {
+        parsedData = parseCsvTable(inputTable);
+    }
 
     if (parsedData.length === 0) {
       toast({
         variant: "destructive",
         title: "Parsing failed",
-        description: "Could not parse the input as Markdown or HTML table.",
+        description: "Could not parse the input as Markdown, HTML, or CSV table.",
       });
       setIsLoading(false);
       return;
@@ -127,10 +130,10 @@ export function ExcalidrawConverter() {
             </TabsList>
             <TabsContent value="manual" className="flex-grow flex flex-col mt-4 space-y-4">
               <div className="flex-grow flex flex-col space-y-2">
-                <Label htmlFor="input-table">Markdown or HTML Table</Label>
+                <Label htmlFor="input-table">Markdown, HTML or CSV Table</Label>
                 <Textarea
                   id="input-table"
-                  placeholder={`| Header 1 | Header 2 |\n|---|---|\n| Cell 1 | Cell 2 |`}
+                  placeholder={`Header 1,Header 2\nCell 1,Cell 2`}
                   value={inputTable}
                   onChange={(e) => setInputTable(e.target.value)}
                   className="flex-grow font-code text-sm"

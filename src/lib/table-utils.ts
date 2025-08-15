@@ -14,9 +14,10 @@ export function parseMarkdownTable(markdownString: string): string[][] {
   if (!markdownString.trim()) return [];
   try {
     const lines = markdownString.split('\n').filter(line => line.includes('|'));
+    if (lines.length === 0) return [];
     const data: string[][] = [];
     lines.forEach(line => {
-      if (line.includes('---')) return;
+      if (line.match(/\|?(-{3,}\|)+/)) return;
       const cells = line.split('|').map(cell => stripMarkdown(cell.trim()));
       if (cells[0] === '') cells.shift();
       if (cells.length > 0 && cells[cells.length - 1].trim() === '') cells.pop();
@@ -31,7 +32,7 @@ export function parseMarkdownTable(markdownString: string): string[][] {
 
 // Parser for HTML table
 export function parseHtmlTable(htmlString: string): string[][] {
-  if (typeof window === 'undefined') return [];
+  if (typeof window === 'undefined' || !htmlString.trim()) return [];
   try {
     const parser = new DOMParser();
     const doc = parser.parseFromString(htmlString, 'text/html');
@@ -54,6 +55,26 @@ export function parseHtmlTable(htmlString: string): string[][] {
     return [];
   }
 }
+
+// Parser for CSV table
+export function parseCsvTable(csvString: string): string[][] {
+  if (!csvString.trim()) return [];
+  try {
+    const data: string[][] = [];
+    const lines = csvString.split('\n');
+    for (const line of lines) {
+      if (line.trim() === '') continue;
+      // This is a simple parser. It doesn't handle quoted fields containing commas.
+      const cells = line.split(',').map(cell => cell.trim());
+      data.push(cells);
+    }
+    return data;
+  } catch(error) {
+      console.error("CSV parsing error:", error);
+      return [];
+  }
+}
+
 
 export function convertToExcalidraw(tableData: string[][]): {
   type: string;

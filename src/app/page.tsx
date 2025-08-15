@@ -8,7 +8,7 @@ export default function Home() {
           Excalidraw Table Converter
         </h1>
         <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">
-          Instantly turn your Markdown or HTML tables into Excalidraw diagrams.
+          Instantly turn your Markdown, HTML, or CSV tables into Excalidraw diagrams.
           You can also generate or improve tables with the power of AI.
         </p>
       </div>
