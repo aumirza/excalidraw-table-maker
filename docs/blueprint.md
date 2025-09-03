@@ -1,4 +1,4 @@
-# **App Name**: Excalidraw Converter
+# **App Name**: Excalidraw Table Maker
 
 ## Core Features:
 

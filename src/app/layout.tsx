@@ -3,8 +3,8 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-  title: 'Excalidraw Converter',
-  description: 'Convert tables to Excalidraw format with AI assistance.',
+  title: 'Excalidraw Table Maker',
+  description: 'Create/Generate Excalidraw Table with AI assistance.',
 };
 
 export default function RootLayout({
