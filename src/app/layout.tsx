@@ -7,44 +7,41 @@ export const metadata: Metadata = {
   description: 'Create/Generate Excalidraw Table with AI assistance.',
   icons: [
     {
-        "url": "/android_chrome_192X192.png",
+        "url": "/icons/android_chrome_192X192.png",
         "sizes": "192x192",
         "type": "image/png"
     },
     {
-        "url": "/android_chrome_512X512.png",
+        "url": "/icons/android_chrome_512X512.png",
         "sizes": "512x512",
         "type": "image/png"
     },
     {
-        "url": "/apple_touch_icon.png",
+        "url": "/icons/apple_touch_icon.png",
         "sizes": "180x180",
         "type": "image/png"
     },
     {
-        "url": "/favicon_16X16.png",
+        "url": "/icons/favicon_16X16.png",
         "sizes": "16x16",
         "type": "image/png"
     },
     {
-        "url": "/favicon_32X32.png",
+        "url": "/icons/favicon_32X32.png",
         "sizes": "32x32",
         "type": "image/png"
     },
     {
-        "url": "/favicon_96X96.png",
+        "url": "/icons/favicon_96X96.png",
         "sizes": "96x96",
         "type": "image/png"
     },
     {
-        "url": "/mstile_150X150.png",
+        "url": "/icons/mstile_150X150.png",
         "sizes": "150x150",
         "type": "image/png"
     },
-    {
-        "url": "/safari_pinned_tab.svg",
-        "rel": "mask-icon"
-    }
+
   ],
 };
 
