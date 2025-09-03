@@ -41,6 +41,10 @@ export const metadata: Metadata = {
         "sizes": "150x150",
         "type": "image/png"
     },
+    {
+        "url": "/safari_pinned_tab.svg",
+        "rel": "mask-icon"
+    }
   ],
 };
 
