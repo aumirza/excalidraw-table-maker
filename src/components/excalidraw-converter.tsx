@@ -182,9 +182,9 @@ export function ExcalidrawConverter() {
                 <Button onClick={handleConvert} disabled={isLoading || !inputTable.trim()}>
                   <RefreshCw className="mr-2 h-4 w-4" /> Convert to Excalidraw
                 </Button>
-                <Button variant="secondary" onClick={handleImprove} disabled={isLoading || !inputTable.trim()}>
+                {/* <Button variant="secondary" onClick={handleImprove} disabled={isLoading || !inputTable.trim()}>
                   <Wand2 className="mr-2 h-4 w-4" /> Improve with AI
-                </Button>
+                </Button> */}
                 <Button variant="outline" onClick={() => fileInputRef.current?.click()} disabled={isLoading}>
                     <Upload className="mr-2 h-4 w-4" /> Upload CSV
                 </Button>
